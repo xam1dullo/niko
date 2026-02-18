@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- SEO & Identity -->
+    <title>Nikoh Tibbiy Ko'rigi — O'zbekiston</title>
+    <meta name="description" content="O'zbekiston bo'ylab nikohlanuvchi shaxslar uchun tibbiy ko'rik bo'yicha to'liq qo'llanma. Dispanserlar, poliklinikalar va kerakli hujjatlar." />
+    <meta name="keywords" content="nikoh, tibbiy ko'rik, zagz, dispanser, poliklinika, o'zbekiston, toshkent" />
+    <meta name="theme-color" content="#1a73e8" />
+    <meta property="og:title" content="Nikoh Tibbiy Ko'rigi" />
+    <meta property="og:description" content="Nikohlanuvchi shaxslar uchun yagona tibbiy ko'rik qo'llanmasi" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>">
+
+    <!-- Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Rubik', 'sans-serif'],
+              display: ['Nunito', 'sans-serif'],
+            },
+            colors: {
+              primary: {
+                DEFAULT: '#1a73e8',
+                dark: '#1557b0',
+              },
+              green: {
+                DEFAULT: '#0f9d58',
+                light: '#e6f4ea',
+              },
+            },
+            animation: {
+              'fade-in-up': 'fadeInUp 0.5s ease-out',
+              'fade-in-right': 'fadeInRight 0.5s ease-out',
+            },
+            keyframes: {
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeInRight: {
+                '0%': { opacity: '0', transform: 'translateX(10px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        overscroll-behavior-y: none;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .leaflet-container {
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+      
+      /* Initial Loader */
+      #loader {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+        transition: opacity 0.5s ease;
+      }
+      .spinner {
+        width: 48px;
+        height: 48px;
+        border: 4px solid #e2e8f0;
+        border-top-color: #1a73e8;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+
+    <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.574.0",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react-leaflet": "https://esm.sh/react-leaflet@^5.0.0",
+    "leaflet": "https://esm.sh/leaflet@^1.9.4",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "geojson": "https://esm.sh/geojson@^0.5.0"
+  }
+}
+</script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900">
+    <div id="root">
+      <!-- Loading Skeleton -->
+      <div id="loader">
+        <div class="spinner"></div>
+        <div class="text-xl font-display font-bold text-slate-800">Nikoh Tibbiy Ko'rigi</div>
+        <div class="text-sm text-slate-500 mt-2">Yuklanmoqda...</div>
+      </div>
+    </div>
+    
+    <script>
+      // Global navigation handler
+      document.addEventListener('click', (e) => {
+        const target = e.target.closest('button');
+        if (target && target.innerText && target.innerText.includes('Bosh sahifa')) {
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 50);
+        }
+      });
+    </script>
+    
+    <!-- Entry Point -->
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>
